@@ -7,7 +7,6 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "express": "^4.18.1",
-    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -37,5 +36,13 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://7302htasp6.execute-api.eu-west-1.amazonaws.com"
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "prettier": "^2.7.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  }
 }
