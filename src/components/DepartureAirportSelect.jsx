@@ -1,16 +1,21 @@
 /**
  *
  *  ⚠️ this component enables the user to select from
- *  a list of airports based in their country.
+ *  a list of airports based in their country, carrying
+ *  out some follow up operations.
  *
- *  it accepts a prop state of 'airports' and 'user'
- *  along with the 'airportCache' and 'setAirportCache'
- *  getter and setter.
+ *
+ *  it accepts the following props
+ *  'airports'
+ *  'airportCache'
+ *  'setAirportCache'
+ *  'setDeparture'
+ *  'user'
  *
  */
 
 export default function DepartureAirportSelect(props) {
-  const { airports, user, airportCache, setAirportCache } = props;
+  const { airports, user, airportCache, setAirportCache, setDeparture } = props;
 
   const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -38,10 +43,18 @@ export default function DepartureAirportSelect(props) {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          if (data.results.formatted_address === user.country) {
+          if (data.results[0].formatted_address === user.country) {
+            console.log('inside departure area');
             setAirportCache({ ...airportCache, [selectedAirport]: true });
+            setDeparture({
+              airport: selectedAirport,
+              lat: data.results[0].geometry.location.lat,
+              lng: data.results[0].geometry.location.lng,
+            });
           } else {
+            console.log('outside departure area');
             setAirportCache({ ...airportCache, [selectedAirport]: false });
+            setDeparture(null);
           }
         })
         .catch((error) => console.error(error));

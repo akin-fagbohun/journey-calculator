@@ -1,11 +1,15 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import DepartureAirportSelect from './components/DepartureAirportSelect';
+import CalculateVehicleJourney from './components/CalculateVehicleJourney';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
 export default function App() {
   const [postcode, setPostcode] = useState(null);
+  const [airports, setAirports] = useState([]);
+  const [airportCache, setAirportCache] = useState({});
+  const [departure, setDeparture] = useState(null);
   const [user, setUser] = useState({
     postcode: '',
     lat: 0,
@@ -13,8 +17,6 @@ export default function App() {
     country: '',
     countryCode: '',
   });
-  const [airports, setAirports] = useState([]);
-  const [airportCache, setAirportCache] = useState({});
 
   useEffect(() => {
     fetch('https://7302htasp6.execute-api.eu-west-1.amazonaws.com/v1/airport')
@@ -31,7 +33,6 @@ export default function App() {
       .then((res) => res.json())
       .then((data) => {
         setAirportCache([]);
-        console.log(data);
         setUser({
           postcode,
           lat: data.results[0].geometry.location.lat,
@@ -39,8 +40,6 @@ export default function App() {
           country: 'United Kingdom', // later add country selector
           countryCode: 'GB',
         });
-
-        console.log(data);
       })
       .catch((error) => console.error(error));
   };
@@ -74,33 +73,20 @@ export default function App() {
             user={user}
             airportCache={airportCache}
             setAirportCache={setAirportCache}
+            setDeparture={setDeparture}
           />
+          <CalculateVehicleJourney user={user} departure={departure} />
         </form>
       </section>
-
-      {/* <header className="App-header">
-        <button type="button" onClick={handleClick}>
-          App
-        </button>
-        <button type="button" onClick={handleGoogleDistanceClick}>
-          Google Distance Click
-        </button>
-      </header> */}
     </main>
   );
 }
 
-// https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY valid single value query
-
-// const handleClick = () => {
-//   fetch('https://7302htasp6.execute-api.eu-west-1.amazonaws.com/v1/airport').then((res) => {
-//     res.json().then((data) => console.log(data));
-//   });
-// };
-
-// const handleGoogleDistanceClick = () => {
-//   fetch().then((res) => {
-//     // `https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${userLat}%2C${userLng}&origins=${airportLat}%2C${airportLng}&key=${apiKey}`
-//     res.json().then((data) => console.log(data));
-//   });
-// };
+/* <header className="App-header">
+  <button type="button" onClick={handleClick}>
+    App
+  </button>
+  <button type="button" onClick={handleGoogleDistanceClick}>
+    Google Distance Click
+  </button>
+</header> */
