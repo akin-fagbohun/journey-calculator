@@ -1,15 +1,38 @@
-import './App.css';
-import { useState, useEffect } from 'react';
-import DepartureAirportSelect from './components/DepartureAirportSelect';
-import CalculateVehicleJourney from './components/CalculateVehicleJourney';
+import { useQuery } from 'react-query';
+import { useState } from 'react';
+import Airports from './components/Airports';
+import Postcode from './components/Postcode';
 
-const apiKey = process.env.REACT_APP_API_KEY;
+import './index.css';
+import { getAirports } from './utils/api';
+import Vehicle from './components/Vehicle';
+import VehicleDistance from './components/VehicleDistance';
+
+const fetchAirports = async () => {
+  const airports = await getAirports();
+  return airports;
+};
 
 export default function App() {
-  const [postcode, setPostcode] = useState(null);
-  const [airports, setAirports] = useState([]);
-  const [airportCache, setAirportCache] = useState({});
-  const [departure, setDeparture] = useState(null);
+  // const [travelDistance, setTravelDistance] = useState({
+  //   vehicle: 0,
+  //   outFlight: 0,
+  //   inFlight: 0,
+  // });
+  const [homeAirport, setHomeAirport] = useState({
+    name: '',
+    id: '',
+    lat: '',
+    lng: '',
+  });
+
+  const [awayAirport, setAwayAirport] = useState({
+    name: '',
+    id: '',
+    lat: '',
+    lng: '',
+  });
+
   const [user, setUser] = useState({
     postcode: '',
     lat: 0,
@@ -18,75 +41,26 @@ export default function App() {
     countryCode: '',
   });
 
-  useEffect(() => {
-    fetch('https://7302htasp6.execute-api.eu-west-1.amazonaws.com/v1/airport')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setAirports(data);
-      })
-      .catch((error) => console.error(error));
-  }, [airports.length]);
-
-  const getPostcode = () => {
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=${apiKey}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAirportCache([]);
-        setUser({
-          postcode,
-          lat: data.results[0].geometry.location.lat,
-          lng: data.results[0].geometry.location.lng,
-          country: 'United Kingdom', // later add country selector
-          countryCode: 'GB',
-        });
-      })
-      .catch((error) => console.error(error));
-  };
+  const { data, status } = useQuery('airports', fetchAirports);
 
   return (
     <main className="container">
+      <h1>Airport Journey Planner</h1>
       <section className="App">
         <form className="form">
-          <label htmlFor="postcode">Enter Postcode</label>
-          <div className="submit-data">
-            <input
-              type="text"
-              id="name"
-              name="postcode"
-              required
-              onChange={(e) => setPostcode(e.target.value)}
-            />
-
-            {postcode ? (
-              <button type="button" onClick={getPostcode}>
-                Google Postcode Click
-              </button>
-            ) : (
-              <button type="button" onClick={getPostcode} disabled>
-                Google Postcode Click
-              </button>
-            )}
-          </div>
-          <DepartureAirportSelect
-            airports={airports}
-            user={user}
-            airportCache={airportCache}
-            setAirportCache={setAirportCache}
-            setDeparture={setDeparture}
+          <Postcode homeAirport={homeAirport} setUser={setUser} />
+          <Airports
+            airports={data}
+            status={status}
+            homeAirport={homeAirport}
+            setHomeAirport={setHomeAirport}
+            awayAirport={awayAirport}
+            setAwayAirport={setAwayAirport}
           />
-          <CalculateVehicleJourney user={user} departure={departure} />
+          <VehicleDistance user={user} setUser={setUser} homeAirport={homeAirport} />
+          <Vehicle user={user} homeAirport={homeAirport} />
         </form>
       </section>
     </main>
   );
 }
-
-/* <header className="App-header">
-  <button type="button" onClick={handleClick}>
-    App
-  </button>
-  <button type="button" onClick={handleGoogleDistanceClick}>
-    Google Distance Click
-  </button>
-</header> */
