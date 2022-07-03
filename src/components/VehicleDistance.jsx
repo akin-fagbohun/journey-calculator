@@ -4,18 +4,16 @@ import { getDistance } from '../utils/api';
 
 const fetchDistance = async (userLat, userLng, airportLat, airportLng) => {
   const distance = await getDistance(userLat, userLng, airportLat, airportLng);
-  const miles = distance.data.routes[0].summary.lengthInMeters / 1609.34; // convert result in metres to meters to miles an return.
+  const miles = distance.data.routes[0].summary.lengthInMeters / 1609.34;
   return miles.toFixed(0);
 };
 
-export default function VehicleDistance({ user, homeAirport, travelDistance, setTravelDistance }) {
+export default function VehicleDistance({ user, homeAirport }) {
   const { data, refetch } = useQuery(
     ['distance', user.lat, user.lng, homeAirport.lat, homeAirport.lng],
     () => fetchDistance(user.lat, user.lng, homeAirport.lat, homeAirport.lng),
     { enabled: false }
   );
-
-  console.log('🚀 ~ file: VehicleDistance.jsx ~ line 13 ~ VehicleDistance ~ data', data);
 
   useEffect(() => {
     if (user.postcode && homeAirport.name) {
@@ -24,8 +22,6 @@ export default function VehicleDistance({ user, homeAirport, travelDistance, set
   }, [user.postcode, homeAirport.name]);
 
   if (data) {
-    // setTravelDistance({ ...travelDistance, vehicle: data });
-    console.log('travel distance set');
     return <p>The travel distance to the airport is {data} miles.</p>;
   } else {
     return <></>;

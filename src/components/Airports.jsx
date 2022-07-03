@@ -5,7 +5,6 @@ export default function Airports({ airports, status, homeAirport, setHomeAirport
   const [destination, setDestination] = useState(null);
 
   const originSelect = (originAirport) => {
-    console.log(originAirport);
     setOrigin(originAirport);
     for (let i = 0; i < airports.length; i++) {
       if (airports[i].name === originAirport) {
@@ -18,7 +17,6 @@ export default function Airports({ airports, status, homeAirport, setHomeAirport
         });
       }
     }
-    console.log('origin airport set');
   };
 
   return (

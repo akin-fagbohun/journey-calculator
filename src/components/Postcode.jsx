@@ -25,12 +25,10 @@ export default function Postcode({ homeAirport, user, setUser }) {
         country: 'United Kingdom', // later add country selector
         countryCode: 'GB',
       });
-      console.log('user info updated');
     }
   }, [data]);
 
   const handleClick = () => {
-    console.log(postcode);
     refetch();
   };
 

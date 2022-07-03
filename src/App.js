@@ -34,7 +34,6 @@ export default function App() {
   });
 
   const { data, status } = useQuery('airports', fetchAirports);
-  console.log('🚀 ~ file: App.js ~ line 37 ~ App ~ data', data);
 
   return (
     <main className="container">

@@ -16,7 +16,6 @@ export default function Vehicle({ user, homeAirport }) {
   };
 
   const toggleMode = (vehicle) => {
-    console.log(vehicle);
     setMode(vehicle);
   };
 
