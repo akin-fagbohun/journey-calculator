@@ -1,15 +1,34 @@
 import { useState } from 'react';
 
-export default function Airports({ airports, status, homeAirport, setHomeAirport }) {
-  const [origin, setOrigin] = useState(null);
+export default function Airports({
+  airports,
+  status,
+  homeAirport,
+  setHomeAirport,
+  awayAirport,
+  setAwayAirport,
+}) {
   const [destination, setDestination] = useState(null);
 
   const originSelect = (originAirport) => {
-    setOrigin(originAirport);
     for (let i = 0; i < airports.length; i++) {
       if (airports[i].name === originAirport) {
         setHomeAirport({
           ...homeAirport,
+          name: airports[i].name,
+          id: airports[i].id,
+          lat: airports[i].latitude,
+          lng: airports[i].longitude,
+        });
+      }
+    }
+  };
+
+  const destinationSelect = (destinationAirport) => {
+    for (let i = 0; i < airports.length; i++) {
+      if (airports[i].name === destinationAirport) {
+        setAwayAirport({
+          ...awayAirport,
           name: airports[i].name,
           id: airports[i].id,
           lat: airports[i].latitude,
@@ -53,7 +72,7 @@ export default function Airports({ airports, status, homeAirport, setHomeAirport
         </select>
       )}
       {status === 'success' && (
-        <select id="destination-select" onChange={(e) => setDestination(e.target.value)}>
+        <select id="destination-select" onChange={(e) => destinationSelect(e.target.value)}>
           <option></option>
           {airports.map((airport) => {
             return <option key={`destination-${airport.id}`}>{airport.name}</option>;

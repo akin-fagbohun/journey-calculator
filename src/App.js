@@ -25,6 +25,14 @@ export default function App() {
     lat: '',
     lng: '',
   });
+
+  const [awayAirport, setAwayAirport] = useState({
+    name: '',
+    id: '',
+    lat: '',
+    lng: '',
+  });
+
   const [user, setUser] = useState({
     postcode: '',
     lat: 0,
@@ -46,6 +54,8 @@ export default function App() {
             status={status}
             homeAirport={homeAirport}
             setHomeAirport={setHomeAirport}
+            awayAirport={awayAirport}
+            setAwayAirport={setAwayAirport}
           />
           <VehicleDistance user={user} setUser={setUser} homeAirport={homeAirport} />
           <Vehicle user={user} homeAirport={homeAirport} />
