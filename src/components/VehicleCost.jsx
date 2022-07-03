@@ -53,5 +53,12 @@ export default function VehicleCost({ user, homeAirport, calculate, mode }) {
         {mode === 'Car' ? <p>{`This price includes parking charges of £${parking}.`}</p> : <></>}
       </>
     );
+  } else if (data && mode === 'Taxi') {
+    return (
+      <>
+        <p>{`The journey to the airport will cost £${totalPrice.toFixed(2)}`}</p>
+        <p>{`Vehicles required: ${numberOfVehicles}`}</p>
+      </>
+    );
   }
 }
