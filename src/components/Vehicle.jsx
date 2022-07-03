@@ -23,7 +23,7 @@ export default function Vehicle({ user, homeAirport }) {
     <>
       <p>Choose your mode of transport:</p>
       <div>
-        <label htmlFor="vehicle-select">Traval by</label>
+        <label htmlFor="vehicle-select">Travel by</label>
         <select id="vehicle-select" onChange={(e) => toggleMode(e.target.value)}>
           <option>Car</option>
           <option>Taxi</option>
