@@ -10,21 +10,10 @@ const tomTomApi = axios.create({
 const panApi = 'https://7302htasp6.execute-api.eu-west-1.amazonaws.com/v1';
 
 export const getDistance = (userLat, userLng, destinationLat, destinationLng) => {
-  return (
-    // axios
-    //   .get(
-    //     `https://7302htasp6.execute-api.eu-west-1.amazonaws.com/v1/${userLat}%2C${userLng}%3A${destinationLat}%2C${destinationLng}/json?key=${tomTom_key}`
-    //   )
-    //   .then((res) => res.json())
-    tomTomApi
-      .get(`${userLat}%2C${userLng}%3A${destinationLat}%2C${destinationLng}/json?key=${tomTom_key}`)
-      .then((res) => res)
-      // .then((res) => {
-      //   const miles = res.data.routes[0].summary.lengthInMeters / 1609.34; // convert result in metres to meters to miles an return.
-      //   return miles.toFixed(0);
-      // })
-      .catch((error) => console.error(error))
-  );
+  return tomTomApi
+    .get(`${userLat}%2C${userLng}%3A${destinationLat}%2C${destinationLng}/json?key=${tomTom_key}`)
+    .then((res) => res)
+    .catch((error) => console.error(error));
 };
 
 export const getAirports = () => {
@@ -33,11 +22,11 @@ export const getAirports = () => {
     .catch((error) => console.error(error));
 };
 
-// export const getFlights = () => {
-//   return fetch(`${panApi}/airport`)
-//     .then((res) => res.json())
-//     .catch((error) => console.error(error));
-// };
+export const getOutFlights = (homeAirportId, awayAirportId) => {
+  return fetch(`${panApi}/airport/${homeAirportId}/to/${awayAirportId}`)
+    .then((res) => res.json())
+    .catch((error) => console.error(error));
+};
 
 export const getPostcode = (postcode) => {
   return fetch(

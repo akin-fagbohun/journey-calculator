@@ -2,11 +2,12 @@ import { useQuery } from 'react-query';
 import { useState } from 'react';
 import Airports from './components/Airports';
 import Postcode from './components/Postcode';
+import Vehicle from './components/Vehicle';
+import VehicleDistance from './components/VehicleDistance';
+import OutFlight from './components/OutFlight';
 
 import './index.css';
 import { getAirports } from './utils/api';
-import Vehicle from './components/Vehicle';
-import VehicleDistance from './components/VehicleDistance';
 
 const fetchAirports = async () => {
   const airports = await getAirports();
@@ -60,6 +61,9 @@ export default function App() {
           <VehicleDistance user={user} setUser={setUser} homeAirport={homeAirport} />
           <Vehicle user={user} homeAirport={homeAirport} />
         </form>
+      </section>
+      <section>
+        <OutFlight homeAirport={homeAirport} awayAirport={awayAirport} />
       </section>
     </main>
   );
