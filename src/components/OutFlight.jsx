@@ -18,7 +18,7 @@ export default function OutFlight({ allAirports, homeAirport, awayAirport }) {
     if (homeAirport.id && awayAirport.id) {
       refetch();
     }
-  }, [homeAirport.id, awayAirport.id]);
+  }, [homeAirport.id, awayAirport.id]); // eslint-disable-line
 
   if (data) {
     const flightDistance = data.miles.reduce(

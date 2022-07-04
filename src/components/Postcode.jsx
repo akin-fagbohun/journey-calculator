@@ -26,7 +26,7 @@ export default function Postcode({ homeAirport, user, setUser }) {
         countryCode: 'GB',
       });
     }
-  }, [data]);
+  }, [data]); // eslint-disable-line
 
   const handleClick = (e) => {
     if (postcode) {

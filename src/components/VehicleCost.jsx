@@ -19,7 +19,7 @@ export default function VehicleCost({ user, homeAirport, calculate, mode }) {
     if (user.lat && user.lng && homeAirport.lat && homeAirport.lng) {
       refetch();
     }
-  }, [user.lat, homeAirport.lat]);
+  }, [user.lat, homeAirport.lat]); // eslint-disable-line
 
   const numberOfVehicles = Math.ceil(calculate.passengers / 4);
   const parking = numberOfVehicles * calculate.carParking;

@@ -16,7 +16,7 @@ export default function CostSummary() {
           </p>
           <small>based on number of passengers</small>
         </div>
-        <p id="total-vehicles">£value</p>
+        <p id="total-vehicles">number</p>
         <div id="flight-summary-out">
           <p>
             <span>Total Outbound Flight Cost</span>

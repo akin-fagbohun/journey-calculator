@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import VehicleCost from './VehicleCost';
 
 export default function Vehicle({ user, homeAirport }) {

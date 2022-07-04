@@ -19,7 +19,7 @@ export default function VehicleDistance({ user, homeAirport }) {
     if (user.postcode && homeAirport.name) {
       refetch();
     }
-  }, [user.postcode, homeAirport.name]);
+  }, [user.postcode, homeAirport.name]); // eslint-disable-line
 
   if (data) {
     return <p>The travel distance to the airport is {data} miles.</p>;
