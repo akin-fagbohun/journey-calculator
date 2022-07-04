@@ -31,7 +31,9 @@ export default function VehicleCost({ user, homeAirport, calculate, mode }) {
     return (
       <>
         <p>{`The journey to the airport will cost £${totalPrice.toFixed(2)}`}</p>
-        <p>{`Vehicles required: ${numberOfVehicles}`}</p>
+        <p>
+          <span>Vehicles required:</span> {`${numberOfVehicles}`}
+        </p>
         {mode === 'Car' ? <p>{`This price includes parking charges of £${parking}.`}</p> : <></>}
       </>
     );
