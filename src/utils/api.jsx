@@ -28,6 +28,12 @@ export const getOutFlights = (homeAirportId, awayAirportId) => {
     .catch((error) => console.error(error));
 };
 
+export const getInFlights = (homeAirportId, awayAirportId) => {
+  return fetch(`${panApi}/airport/${awayAirportId}/to/${homeAirportId}`)
+    .then((res) => res.json())
+    .catch((error) => console.error(error));
+};
+
 export const getPostcode = (postcode) => {
   return fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=${google_Key}`

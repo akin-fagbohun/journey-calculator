@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export default function Airports({
   airports,
   status,
@@ -8,8 +6,6 @@ export default function Airports({
   awayAirport,
   setAwayAirport,
 }) {
-  const [destination, setDestination] = useState(null);
-
   const originSelect = (originAirport) => {
     for (let i = 0; i < airports.length; i++) {
       if (airports[i].name === originAirport) {
@@ -45,7 +41,7 @@ export default function Airports({
 
       {status === 'loading' && (
         <select id="origin-select">
-          <option>loading airports</option>
+          <option></option>
         </select>
       )}
       {status === 'error' && (
@@ -64,7 +60,7 @@ export default function Airports({
       <label htmlFor="desination-select">Travelling to:</label>
       {status === 'loading' && (
         <select id="destination-select">
-          <option>loading airports</option>
+          <option></option>
         </select>
       )}
       {status === 'error' && (

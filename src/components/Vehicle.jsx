@@ -21,7 +21,9 @@ export default function Vehicle({ user, homeAirport }) {
 
   return (
     <>
-      <p>Choose your mode of transport:</p>
+      <p>
+        <span>Choose your mode of transport:</span>
+      </p>
       <div>
         <label htmlFor="vehicle-select">Travel by</label>
         <select id="vehicle-select" onChange={(e) => toggleMode(e.target.value)}>
@@ -29,7 +31,9 @@ export default function Vehicle({ user, homeAirport }) {
           <option>Taxi</option>
         </select>
       </div>
-      <p>How many passengers?:</p>
+      <p>
+        <span>How many passengers?:</span>
+      </p>
       <small>maximum, 4 per vehicle.</small>
       <div>
         <label htmlFor="passengers">Passengers</label>
