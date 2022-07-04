@@ -6,10 +6,10 @@ import Vehicle from './components/Vehicle';
 import VehicleDistance from './components/VehicleDistance';
 import OutFlight from './components/OutFlight';
 import InFlight from './components/InFlight';
+import CostSummary from './components/CostSummary';
 
 import './index.css';
 import { getAirports } from './utils/api';
-import CostSummary from './components/CostSummary';
 
 const fetchAirports = async () => {
   const airports = await getAirports();

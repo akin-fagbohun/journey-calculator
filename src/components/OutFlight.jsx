@@ -48,7 +48,9 @@ export default function OutFlight({ allAirports, homeAirport, awayAirport }) {
           <ul>
             {data.journey.map((connection, i) => {
               if (i !== 0 && i !== data.journey.length - 1) {
-                return <li key={connection}>{connection}</li>;
+                return allAirports
+                  .filter((airport) => airport.id === connection)
+                  .map((filteredAirport) => <li key={connection}>{filteredAirport.name}</li>);
               }
             })}
           </ul>
