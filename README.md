@@ -1,6 +1,6 @@
-# Welcome to my Aiport Journey Calculator
+# Welcome to my Airport Journey Calculator
 
-To get started, install the packages
+To get started, create a fork of this repository and install the packages...
 
 ```bash
 npm i
