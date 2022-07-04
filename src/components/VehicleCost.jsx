@@ -42,5 +42,9 @@ export default function VehicleCost({ user, homeAirport, calculate, mode }) {
         <p>{`Vehicles required: ${numberOfVehicles}`}</p>
       </>
     );
+  } else if (!data && calculate.passengers > 1) {
+    return (
+      <p>We're having trouble getting your location. Check that you've entered a valid postcode!</p>
+    );
   }
 }

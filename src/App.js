@@ -5,9 +5,11 @@ import Postcode from './components/Postcode';
 import Vehicle from './components/Vehicle';
 import VehicleDistance from './components/VehicleDistance';
 import OutFlight from './components/OutFlight';
+import InFlight from './components/InFlight';
 
 import './index.css';
 import { getAirports } from './utils/api';
+import CostSummary from './components/CostSummary';
 
 const fetchAirports = async () => {
   const airports = await getAirports();
@@ -15,11 +17,6 @@ const fetchAirports = async () => {
 };
 
 export default function App() {
-  // const [travelDistance, setTravelDistance] = useState({
-  //   vehicle: 0,
-  //   outFlight: 0,
-  //   inFlight: 0,
-  // });
   const [homeAirport, setHomeAirport] = useState({
     name: '',
     id: '',
@@ -46,7 +43,8 @@ export default function App() {
 
   return (
     <main className="container">
-      <h1>Airport Journey Planner</h1>
+      <h1 className="header">Airport Journey Planner</h1>
+
       <section className="App">
         <form className="form">
           <Postcode homeAirport={homeAirport} setUser={setUser} />
@@ -60,10 +58,10 @@ export default function App() {
           />
           <VehicleDistance user={user} setUser={setUser} homeAirport={homeAirport} />
           <Vehicle user={user} homeAirport={homeAirport} />
+          <OutFlight allAirports={data} homeAirport={homeAirport} awayAirport={awayAirport} />
+          <InFlight allAirports={data} homeAirport={homeAirport} awayAirport={awayAirport} />
+          <CostSummary />
         </form>
-      </section>
-      <section>
-        <OutFlight homeAirport={homeAirport} awayAirport={awayAirport} />
       </section>
     </main>
   );

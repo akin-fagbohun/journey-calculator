@@ -28,8 +28,10 @@ export default function Postcode({ homeAirport, user, setUser }) {
     }
   }, [data]);
 
-  const handleClick = () => {
-    refetch();
+  const handleClick = (e) => {
+    if (postcode) {
+      refetch();
+    }
   };
 
   return (
@@ -44,8 +46,8 @@ export default function Postcode({ homeAirport, user, setUser }) {
           onChange={(e) => setPostcode(e.target.value)}
         />
 
-        <button type="button" onClick={handleClick}>
-          Google Postcode Click
+        <button className="btn" type="button" onClick={handleClick}>
+          Enter
         </button>
       </div>
     </>

@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { getOutFlights } from '../utils/api';
+import { getInFlights } from '../utils/api';
 
 const fetchJourney = async (homeAirport, awayAirport) => {
-  const outJourney = await getOutFlights(homeAirport.id, awayAirport.id);
-  return outJourney;
+  const inJourney = await getInFlights(homeAirport.id, awayAirport.id);
+  return inJourney;
 };
 
-export default function OutFlight({ allAirports, homeAirport, awayAirport }) {
+export default function InFlight({ allAirports, homeAirport, awayAirport }) {
   const { data, refetch } = useQuery(
-    ['outbound', homeAirport, awayAirport],
+    ['inbound', homeAirport, awayAirport],
     () => fetchJourney(homeAirport, awayAirport),
     { enabled: false }
   );
@@ -29,15 +29,14 @@ export default function OutFlight({ allAirports, homeAirport, awayAirport }) {
 
     return (
       <div>
-        <h2>Outbound Journey</h2>
+        <h2>Inbound Journey</h2>
 
         <p>
           Tickets will cost <span>{`£${ticket.toFixed(2)}`} per passenger</span>.
         </p>
         <p>
-          Your flight will depart from
-          <span>{` ${homeAirport.name} `}</span>, destined for
-          <span>{` ${awayAirport.name}`}</span>.
+          Your flight will depart from <span>{` ${awayAirport.name}`}</span>, returning to
+          <span>{` ${homeAirport.name}`}</span>.
         </p>
         <p>
           {data.journey.length === 2
