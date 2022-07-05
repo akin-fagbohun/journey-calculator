@@ -1,9 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-// import * as ReactQuery from 'react-query';
 import Postcode from './Postcode';
+import userEvent from '@testing-library/user-event';
 
-// sample airport data
 jest.mock('react-query', () => ({
   useQuery: () => ({
     isLoading: false,
@@ -76,8 +75,6 @@ jest.mock('react-query', () => ({
 }));
 
 test('postcode submit text box and button renders', () => {
-  // jest.spyOn(ReactQuery, 'useQuery').mockImplementation();
-
   render(<Postcode homeAirport="Heathrow Airport" setUser={jest.fn} />);
 
   const postcodeButton = screen.getByRole('button', {
@@ -88,4 +85,43 @@ test('postcode submit text box and button renders', () => {
   });
   expect(postcodeButton).toBeInTheDocument();
   expect(form).toBeInTheDocument();
+});
+
+test('postcode form should accept entry', async () => {
+  render(<Postcode homeAirport="Heathrow Airport" setUser={jest.fn} />);
+
+  await userEvent.type(
+    screen.getByRole('textbox', {
+      name: /enter postcode/i,
+    }),
+    'N1C 4AA'
+  );
+
+  expect(
+    screen.getByRole('textbox', {
+      name: /enter postcode/i,
+    })
+  ).toHaveValue('N1C 4AA');
+});
+
+test.skip('Pressing "enter" on keyboard should submit postcode', async () => {
+  render(<Postcode homeAirport="Heathrow Airport" setUser={jest.fn} />);
+
+  await userEvent.type(
+    screen.getByRole('textbox', {
+      name: /enter postcode/i,
+    }),
+    'N1C 4AA'
+  );
+
+  // userEvent.click(
+  //   screen.getByRole('button', {
+  //     name: /enter/i,
+  //   })
+  // );
+  expect(
+    screen.getByRole('textbox', {
+      name: /enter postcode/i,
+    })
+  ).toHaveValue('N1C 4AA');
 });
