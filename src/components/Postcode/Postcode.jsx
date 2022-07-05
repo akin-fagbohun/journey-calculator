@@ -1,6 +1,7 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { getPostcode } from '../utils/api';
+import { getPostcode } from '../../utils/api';
 
 const fetchAddress = async (postcode) => {
   const address = await getPostcode(postcode);
@@ -8,7 +9,7 @@ const fetchAddress = async (postcode) => {
   return address;
 };
 
-export default function Postcode({ homeAirport, user, setUser }) {
+export default function Postcode({ user, setUser }) {
   const [postcode, setPostcode] = useState(null);
 
   const { data, refetch } = useQuery(['address', postcode], () => fetchAddress(postcode), {
@@ -28,7 +29,7 @@ export default function Postcode({ homeAirport, user, setUser }) {
     }
   }, [data]); // eslint-disable-line
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     if (postcode) {
       refetch();
     }
@@ -40,13 +41,13 @@ export default function Postcode({ homeAirport, user, setUser }) {
       <div className="submit-data">
         <input
           type="text"
-          id="name"
+          id="postcode"
           name="postcode"
           required
           onChange={(e) => setPostcode(e.target.value)}
         />
 
-        <button className="btn" type="button" onClick={handleClick}>
+        <button data-testid="postcode-btn" className="btn" type="button" onClick={handleClick}>
           Enter
         </button>
       </div>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { getDistance } from '../utils/api';
 
@@ -46,7 +46,10 @@ export default function VehicleCost({ user, homeAirport, calculate, mode }) {
     );
   } else if (!data && calculate.passengers > 1) {
     return (
-      <p>We're having trouble getting your location. Check that you've entered a valid postcode!</p>
+      <p>
+        We&apos;re having trouble getting your location. Check that you&apos;ve entered a valid
+        postcode!
+      </p>
     );
   }
 }

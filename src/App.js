@@ -1,7 +1,8 @@
+import React from 'react';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 import Airports from './components/Airports';
-import Postcode from './components/Postcode';
+import Postcode from './components/Postcode/Postcode';
 import Vehicle from './components/Vehicle';
 import VehicleDistance from './components/VehicleDistance';
 import OutFlight from './components/OutFlight';
@@ -41,13 +42,14 @@ export default function App() {
 
   const { data, status } = useQuery('airports', fetchAirports);
 
+  console.log(data);
   return (
     <main className="container">
       <h1 className="header">Airport Journey Planner</h1>
 
       <section className="App">
         <form className="form">
-          <Postcode homeAirport={homeAirport} setUser={setUser} />
+          <Postcode user={user} setUser={setUser} />
           <Airports
             airports={data}
             status={status}
