@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
-import Airports from './components/Airports';
+import Airports from './components/Airports/Airports';
 import Postcode from './components/Postcode/Postcode';
 import Vehicle from './components/Vehicle';
 import VehicleDistance from './components/VehicleDistance';
